@@ -5,18 +5,28 @@ import {
   PrimaryGeneratedColumn,
   OneToMany,
   JoinColumn,
+  Unique,
+  CreateDateColumn,
 } from 'typeorm';
 import { Reviews } from './reviews.entity';
 import { Followers } from './followers.entity';
+import { ApiProperty } from '@nestjs/swagger';
 
 @Entity()
+@Unique(['username'])
 export class User {
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @ApiProperty()
+  @Column()
   username: string;
 
+  @ApiProperty()
   @Column()
   password: string;
 
+  @ApiProperty()
   @Column()
   name: string;
 
@@ -29,6 +39,8 @@ export class User {
   @OneToMany(() => Reviews, (review) => review.user)
   reviews: Reviews[];
 
-  @Column()
+  @CreateDateColumn()
   date_created: Date;
+  @Column()
+  date_updated: Date;
 }

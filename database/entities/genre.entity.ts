@@ -1,11 +1,13 @@
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Films } from "./films.entity";
 
 @Entity()
 export class Genre {
     @PrimaryGeneratedColumn()
     id: number;
-
+    @Column() // Explicit column for filmId
+    filmId: number;
+    
     @ManyToOne(() => Films, film => film.id)
     @JoinColumn({name: "filmId"})
     film: Films;
@@ -13,7 +15,7 @@ export class Genre {
     @Column()
     genre: string;
 
-    @Column()
+    @CreateDateColumn()
     date_created: Date;
 
 }

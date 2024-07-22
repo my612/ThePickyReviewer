@@ -1,36 +1,46 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, Unique, JoinColumn } from "typeorm";   
-import { Films } from "./films.entity";
-import { User } from "./user.entity";
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  Unique,
+  JoinColumn,
+  CreateDateColumn,
+} from 'typeorm';
+import { Films } from './films.entity';
+import { User } from './user.entity';
+import { ApiProperty } from '@nestjs/swagger';
 
 @Entity()
-@Unique(["userId", "filmId"])
+@Unique(['userId', 'filmId'])
 export class Reviews {
-    @PrimaryGeneratedColumn()
-    id: string;
+  @PrimaryGeneratedColumn()
+  id: string;
 
-    @Column()
-    userId: string; // Explicit column for userId
+  @Column()
+  @ApiProperty()
+  userId: number; 
 
-    @Column()
-    filmId: string; // Explicit column for filmId
+  @Column()
+  @ApiProperty()
+  filmId: number; 
 
-    @ManyToOne(() => Films, film => film.id)
-    @JoinColumn({name: "filmId"})
-    film: Films;
-    
-    @ManyToOne(() => User, user => user.username)
-    @JoinColumn({name: "userId"})
-    user: User;
+  @ManyToOne(() => Films, (film) => film.id)
+  @JoinColumn({ name: 'filmId' })
+  film: Films;
 
-    @Column()
-    name: string;
+  @ManyToOne(() => User, (user) => user.id)
+  @JoinColumn({ name: 'userId' })
+  user: User;
 
-    @Column()
-    comment: string;
+  @Column()
+  @ApiProperty()
+  comment: string;
 
-    @Column()
-    rating: number;
+  @Column()
+  @ApiProperty()
+  rating: number;
 
-    @Column()
-    date_created: Date;
+  @CreateDateColumn()
+  date_created: Date;
 }

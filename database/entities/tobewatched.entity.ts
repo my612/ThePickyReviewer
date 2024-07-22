@@ -1,4 +1,4 @@
-import { Entity, ManyToOne, PrimaryGeneratedColumn, Column, Unique, JoinColumn } from "typeorm";
+import { Entity, ManyToOne, PrimaryGeneratedColumn, Column, Unique, JoinColumn, CreateDateColumn } from "typeorm";
 import { Films } from "./films.entity";
 import { User } from "./user.entity";
 
@@ -18,10 +18,10 @@ export class ToBeWatched {
     @JoinColumn({ name: "filmId" }) // This links the filmId column to the film relation
     film: Films;
     
-    @ManyToOne(() => User, user => user.username)
+    @ManyToOne(() => User, user => user.id)
     @JoinColumn({ name: "userId" }) // This links the userId column to the user relation
     user: User;
 
-    @Column()
+    @CreateDateColumn()
     date_created: Date;
 }
