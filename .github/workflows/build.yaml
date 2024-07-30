@@ -7,16 +7,7 @@ on:
       - master 
 
 jobs:
-  set-timestamp:
-    runs-on: ubuntu-latest
-    outputs:
-      steps: ${{ steps.timestamp.outputs }}
-    steps:
-      - name: Set Timestamp
-        id: timestamp
-        run: echo "TIMESTAMP=$(date +"%Y%m%d%H%M%S")" >> $GITHUB_ENV
-  docker:
-    needs: set-timestamp
+ docker:
     runs-on: ubuntu-latest
     steps:
       -
@@ -36,4 +27,4 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           push: true
-          tags: ${TIMESTAMP}
+          
