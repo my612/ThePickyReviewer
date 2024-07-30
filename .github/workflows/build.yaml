@@ -1,9 +1,9 @@
-ame: ci
+name: ci
 
 on:
   push:
     branches:
-      - "master"
+      - master
 
 jobs:
   build:
